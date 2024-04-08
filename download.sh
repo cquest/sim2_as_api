@@ -2,6 +2,7 @@
 
 # script de téléchargement des données IM2 de Météo-France deuis data.gouv.fr
 
+mkdir -p data && cd data
 wget https://object.files.data.gouv.fr/meteofrance/data/synchro_ftp/REF_CC/SIM/QUOT_SIM2_1958-1959.csv.gz
 wget https://object.files.data.gouv.fr/meteofrance/data/synchro_ftp/REF_CC/SIM/QUOT_SIM2_1960-1969.csv.gz
 wget https://object.files.data.gouv.fr/meteofrance/data/synchro_ftp/REF_CC/SIM/QUOT_SIM2_1970-1979.csv.gz

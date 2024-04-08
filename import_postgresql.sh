@@ -2,6 +2,7 @@
 
 # scrip d'import des données SIM2 (sim2/ISBA) dans postgresql
 
+cd data
 psql -c "
 create table sim2 (LAMBX int,LAMBY int,DATE varchar,PRENEI_Q float,PRELIQ_Q float,T_Q float,FF_Q float,Q_Q float, DLI_Q float, SSI_Q float,HU_Q float,EVAP_Q float,ETP_Q float,PE_Q float,SWI_Q float,DRAINC_Q float,RUNC_Q float,RESR_NEIGE_Q float,RESR_NEIGE6_Q float, HTEURNEIGE_Q  float, HTEURNEIGE6_Q float, HTEURNEIGEX_Q float, SNOW_FRAC_Q float, ECOULEMENT_Q float, WG_RACINE_Q float, WGI_RACINE_Q float, TINF_H_Q float, TSUP_H_Q float);"
 create table sim2_grid (lambx int, lamby int, lat varchar, lon varchar);
@@ -11,9 +12,9 @@ update sim2_grid set geom = st_makepoint(replace(lon,',','.')::numeric, replace(
 create index sim2_grid_geom on sim2_grid using gist(geom);
 "
 
-for F in QUOT_SIM2*.csv;
+for F in QUOT_SIM2*.csv.gz;
     do echo $F;
-    psql -c "\copy sim2 from $F with (format csv, header true, delimiter ';');"
+    gunzip -c $F | psql -c "\copy sim2 from STDIN with (format csv, header true, delimiter ';');"
 done
 
 psql -c " CREATE INDEX sim2_date on sim2 (date); " &
