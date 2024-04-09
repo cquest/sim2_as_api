@@ -8,7 +8,9 @@ Ce projet implémente une API minimale pour requêter les données SIM2 de Mét�
 
 ## Chargement des données
 
-TODO !!
+Deux scripts bash permettent de télécharger puis importer les données dans Postgresql:
+- download.sh
+- import_postgresql.sh
 
 ## Lancement du serveur
 
