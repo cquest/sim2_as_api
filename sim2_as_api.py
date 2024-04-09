@@ -9,7 +9,7 @@ class mf_sim2(object):
         db = psycopg2.connect("")  # connexion à la base PG locale
         cur = db.cursor()
 
-        where = b'WHERE (1=1) '
+        where = b' WHERE (1=1) '
 
         date = req.params.get('date', None)
         if date and len(date) >=4:
@@ -17,12 +17,12 @@ class mf_sim2(object):
             where = where + cur.mogrify(" AND date LIKE %s ", (date+"%",))
 
         debut = req.params.get('from', None)
-        if debut and len(debut) == 8:
+        if debut and len(debut) >= 8:
             debut = debut.replace('-','')
             where = where + cur.mogrify(" AND date >= %s ", (debut,))
 
         fin = req.params.get('to', None)
-        if fin and len(fin) == 8:
+        if fin and len(fin) >= 8:
             fin = fin.replace('-','')
             where = where + cur.mogrify(" AND date <= %s ", (fin,))
 
